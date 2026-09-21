@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exposé: Traumhaftes Schloss - Schlimmobilien</title>
+    <!-- Tailwind CSS für das moderne Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Sanfter Übergang für das Hauptbild */
+        #mainImage {
+            transition: opacity 0.3s ease-in-out;
+        }
+        /* Stil für das aktuell ausgewählte Vorschaubild */
+        .thumbnail.active {
+            border-color: #2563eb; /* Blaues Highlighting */
+            opacity: 1;
+        }
+        .thumbnail {
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+        .thumbnail:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Kopfzeile (Header) -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">Schlimmobilien.de</div>
+            <nav class="hidden md:flex space-x-6 text-gray-600 font-medium">
+                <a href="https://www.schwaebisch-hall.de/landeseiten/makeitreal.html" class="hover:text-blue-600">Kaufen</a>
+                <a href="https://www.twitch.tv/rewinside" class="hover:text-blue-600">Mieten</a>
+                <a href="https://puginarug.com/" class="hover:text-blue-600">Verkaufen</a>
+                <a href="https://www.instagram.com/vrasmusv/" class="hover:text-blue-600">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hauptbereich -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- Titel & Eckdaten -->
+        <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-end">
+            <div>
+                <span class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-2">Zu verkaufen</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Charmantes Schmuckstück in ruhiger Lage</h1>
+                <p class="text-gray-500 flex items-center mt-2">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Wüstenstraße 1, 66667 Wüstingen (Oberbayern) 
+                </p>
+            </div>
+            <div class="mt-4 md:mt-0 text-left md:text-right">
+                <div class="text-3xl font-bold text-blue-600">3000 €</div>
+                <p class="text-sm text-gray-500">Käuferprovision: 3,57% inkl. MwSt.</p>
+            </div>
+        </div>
+
+        <!-- DIE SLIDESHOW -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+            <!-- Hauptbild Container (Höhe reduziert, Hintergrund leicht abgedunkelt für besseren Kontrast) -->
+            <div class="relative w-full h-[300px] md:h-[500px] bg-gray-100 rounded-lg overflow-hidden group flex items-center justify-center">
+                <!-- WICHTIG: object-contain sorgt dafür, dass nichts abgeschnitten wird -->
+                <img id="mainImage" src="" alt="Immobilien Ansicht" class="w-full h-full object-contain">
+                
+                <!-- Navigations-Buttons (Zurück / Vor) -->
+                <button onclick="prevSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80 transition focus:outline-none opacity-0 group-hover:opacity-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80 transition focus:outline-none opacity-0 group-hover:opacity-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+
+                <!-- Bildzähler -->
+                <div class="absolute bottom-4 right-4 bg-black bg-opacity-60 text-white px-3 py-1 rounded-full text-sm">
+                    <span id="counter">1</span> / <span id="totalCount">1</span>
+                </div>
+            </div>
+
+            <!-- Vorschaubilder (Thumbnails) -->
+            <div id="thumbnailContainer" class="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                <!-- Werden per JavaScript generiert -->
+            </div>
+        </div>
+
+        <!-- Wichtigste Eigenschaften -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 mb-8">
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                <div class="text-gray-500 text-sm mb-1">Wohnfläche</div>
+                <div class="text-xl font-bold text-gray-800">groß</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                <div class="text-gray-500 text-sm mb-1">Grundstück</div>
+                <div class="text-xl font-bold text-gray-800">unnormal groß</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                <div class="text-gray-500 text-sm mb-1">Zimmer</div>
+                <div class="text-xl font-bold text-gray-800">gestört viele</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                <div class="text-gray-500 text-sm mb-1">Baujahr</div>
+                <div class="text-xl font-bold text-gray-800">2026</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JAVASCRIPT FÜR DIE SLIDESHOW -->
+    <script>
+        // Deine lokalen Dateinamen eingefügt
+        const images = [
+            "Aussenansicht1.jpg",
+            "Aussenansicht2.jpg",
+            "Aussenansicht3.jpg",
+            "Aussenansicht4.jpg",
+            "wohnzimmer1.jpg",
+            "wohnzimmer2.jpg",
+            "schlafzimmer_unten.jpg",
+            "schlafzimmer_oben1.jpg",
+            "schlafzimmer_oben.jpg",
+            "bad_oben1.jpg",
+            "bad_oben2.jpg",
+            "turm.jpg",
+            "kueche.jpg",
+            "Innenraum.png"
+        ];
+
+        let currentIndex = 0;
+        const mainImage = document.getElementById("mainImage");
+        const thumbnailContainer = document.getElementById("thumbnailContainer");
+        const counter = document.getElementById("counter");
+        const totalCount = document.getElementById("totalCount");
+
+        // Initialisierung der Slideshow
+        function initSlider() {
+            totalCount.innerText = images.length;
+            
+            // Vorschaubilder generieren (hier nutze ich object-cover für einheitliche kleine Quadrate)
+            images.forEach((src, index) => {
+                const img = document.createElement("img");
+                img.src = src;
+                img.className = "thumbnail w-24 h-16 object-cover rounded cursor-pointer border-2 border-transparent flex-shrink-0 bg-gray-200";
+                img.onclick = () => goToSlide(index);
+                img.id = `thumb-${index}`;
+                thumbnailContainer.appendChild(img);
+            });
+
+            updateSlider();
+        }
+
+        // Zum vorherigen Bild
+        function prevSlide() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            updateSlider();
+        }
+
+        // Zum nächsten Bild
+        function nextSlide() {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            updateSlider();
+        }
+
+        // Zu einem bestimmten Bild springen
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        // Aktualisiert das Hauptbild und die Hervorhebung der Vorschaubilder
+        function updateSlider() {
+            // Ausblenden für den Übergangseffekt
+            mainImage.style.opacity = 0;
+            
+            setTimeout(() => {
+                mainImage.src = images[currentIndex];
+                mainImage.style.opacity = 1;
+                counter.innerText = currentIndex + 1;
+            }, 150); // Kurze Verzögerung für den Fade-Effekt
+
+            // Alle Thumbnails zurücksetzen
+            document.querySelectorAll(".thumbnail").forEach(thumb => {
+                thumb.classList.remove("active");
+            });
+            // Aktuelles Thumbnail hervorheben
+            const activeThumb = document.getElementById(`thumb-${currentIndex}`);
+            if (activeThumb) {
+                activeThumb.classList.add("active");
+                // Scrollt die Leiste automatisch zum aktiven Bild
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // Starten, sobald die Seite geladen ist
+        initSlider();
+    </script>
+</body>
+</html>
